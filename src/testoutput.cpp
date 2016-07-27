@@ -1,5 +1,4 @@
 #include "enums.hpp"
-#include "feature.hpp"
 #include "testoutput.hpp"
 #include "tobbytestoutput/Config.h"
 #include "tobbytestoutput/Feature.h"
