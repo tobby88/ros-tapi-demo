@@ -1,7 +1,6 @@
 #ifndef TESTCLIENT_H
 #define TESTCLIENT_H
 
-#include "tobbytestclient/hello.h"
 #include "ros/ros.h"
 #include "std_msgs/Header.h"
 #include <unordered_map>

@@ -46,13 +46,13 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  feature.msg
+  Feature.msg
 )
 
 ## Generate services in the 'srv' folder
 add_service_files(
   FILES
-  hello.srv
+  Hello.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -137,7 +137,7 @@ include_directories(
 
 ## Declare a C++ executable
 # add_executable(tobbytestclient_node src/tobbytestclient_node.cpp)
-add_executable(tobbytestclient src/main.cpp src/enums.hpp src/feature.cpp src/testclient.cpp)
+add_executable(tobbytestclient src/main.cpp src/testclient.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -145,6 +145,7 @@ add_dependencies(tobbytestclient ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EX
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(tobbytestclient
+  uuid
   ${catkin_LIBRARIES}
 )
 
