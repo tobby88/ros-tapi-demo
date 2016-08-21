@@ -10,12 +10,12 @@ using namespace std;
 class TestClient
 {
 private:
-  NodeHandle *nh;
+  NodeHandle* nh;
   ServiceClient helloClient;
   std_msgs::Header header;
 
 public:
-  TestClient(NodeHandle *nh);
+  TestClient(NodeHandle* nh);
   ~TestClient();
   bool Connect();
 };
