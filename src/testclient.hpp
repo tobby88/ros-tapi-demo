@@ -3,7 +3,6 @@
 
 #include "ros/ros.h"
 #include "std_msgs/Header.h"
-#include <unordered_map>
 
 using namespace ros;
 using namespace std;
