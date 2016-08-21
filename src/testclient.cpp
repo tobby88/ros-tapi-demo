@@ -29,7 +29,6 @@ bool TestClient::Connect()
   char uuid_string[37];
   uuid_unparse (uuid, uuid_string);
   hello.request.uuid = uuid_string;
-  //hello.request.uuid = "thisisunique";
   Device_Type deviceType = Device_Type::Input_Device;
   hello.request.type = (unsigned short) deviceType;
   tobbytestclient::Feature feature1;
