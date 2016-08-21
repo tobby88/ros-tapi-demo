@@ -53,9 +53,19 @@ bool TestClient::Connect()
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   feature2.uuid = uuid_string;
 
+  tobbytestclient::Feature feature3;
+  feature3.type = (unsigned short)Feature_Type::Button;
+  feature3.name = "irgendson Button";
+  uuid_generate_random(uuid);
+  uuid_unparse(uuid, uuid_array);
+  uuid_string = uuid_array;
+  replace(uuid_string.begin(), uuid_string.end(), '-', '_');
+  feature3.uuid = uuid_string;
+
   vector<tobbytestclient::Feature> features;
   features.push_back(feature1);
   features.push_back(feature2);
+  features.push_back(feature3);
   hello.request.features = features;
   if (helloClient.call(hello))
   {
