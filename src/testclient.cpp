@@ -4,9 +4,6 @@
 #include "tobbytestclient/Hello.h"
 #include <uuid/uuid.h>
 
-#define STANDARD_HEARTBEAT_INTERVAL 10000L
-#define DEBUG
-
 using namespace ros;
 using namespace std;
 
