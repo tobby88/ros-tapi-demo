@@ -11,7 +11,7 @@ int main(int argc, char **argv)
   while(ros::ok())
   {
     testclient.Connect();
-    this_thread::sleep_for(chrono::milliseconds(500));
+    this_thread::sleep_for(chrono::milliseconds(2000));
   }
 
   return 0;
