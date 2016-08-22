@@ -24,8 +24,8 @@ bool TestOutput::Connect()
   tobbytestoutput::Hello hello;
   header.stamp = Time::now();
   header.seq++;
-  hello.request.header = header;
-  hello.request.name = "OutputTest";
+  hello.request.Header = header;
+  hello.request.Name = "OutputTest";
   /*uuid_t uuid;
   uuid_generate_random (uuid);
   char uuid_string[37];
@@ -35,25 +35,25 @@ bool TestOutput::Connect()
   uuid_string = "TestOutputClientUUID";
 
   this->uuid = uuid_string;
-  hello.request.uuid = uuid_string;
-  DeviceType deviceType = DeviceType::OutputDevice;
-  hello.request.type = (unsigned short) deviceType;
+  hello.request.UUID = uuid_string;
+  DeviceType deviceType = DeviceType::ReceiverDevice;
+  hello.request.DeviceType = (unsigned short)deviceType;
   tobbytestoutput::Feature feature1;
-  feature1.type = (unsigned short) FeatureType::Switch;
-  feature1.name = "Button Test";
+  feature1.FeatureType = (unsigned short)FeatureType::Switch;
+  feature1.Name = "Button Test";
   /*uuid_generate_random (uuid);
   uuid_unparse (uuid, uuid_string);*/
 
   uuid_string = "TestOutputFeatureUUID";
 
   featureUuid = uuid_string;
-  feature1.uuid = uuid_string;
+  feature1.UUID = uuid_string;
   vector<tobbytestoutput::Feature> features;
   features.push_back(feature1);
-  hello.request.features = features;
+  hello.request.Features = features;
   if (helloClient.call(hello))
   {
-    ROS_INFO("Connection established, Status %u, Heartbeat %u", hello.response.status, hello.response.heartbeat);
+    ROS_INFO("Connection established, Status %u, Heartbeat %u", hello.response.Status, hello.response.Heartbeat);
     connected = true;
   }
   else
@@ -67,11 +67,11 @@ bool TestOutput::Connect()
 
 void TestOutput::readConfigMsg(const tobbytestoutput::Config::ConstPtr& msg)
 {
-  ROS_INFO("Config Msg for: %s, should be connected to publisher %s with feature id %s to feature id %s, coefficient: %3.2f", msg->receiverUUID.c_str(), msg->publisherUUID.c_str(), msg->publisherFeatureUUID.c_str(), msg->receiverFeatureUUID.c_str(), msg->coefficient);
-  if (msg->receiverUUID == uuid && msg->receiverFeatureUUID == featureUuid)
+  ROS_INFO("Config Msg for: %s, should be connected to publisher %s with feature id %s to feature id %s, coefficient: %3.2f", msg->ReceiverUUID.c_str(), msg->SenderUUID.c_str(), msg->SenderFeatureUUID.c_str(), msg->ReceiverFeatureUUID.c_str(), msg->Coefficient);
+  if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid)
   {
     ROS_INFO("This message is for me! :)");
-    featureSub = nh->subscribe("TobbyAPI/" + msg->publisherUUID + "/" + msg->publisherFeatureUUID, 1000, &TestOutput::gotData, this);
+    featureSub = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" + msg->SenderFeatureUUID, 1000, &TestOutput::gotData, this);
   }
 }
 
