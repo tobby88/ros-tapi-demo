@@ -9,15 +9,19 @@ using namespace std;
 
 class TestClient
 {
-private:
-  NodeHandle* nh;
-  ServiceClient helloClient;
-  std_msgs::Header header;
-
 public:
+  // Constructor/Destructor
   TestClient(NodeHandle* nh);
   ~TestClient();
+
+  // Public member functions
   bool Connect();
+
+private:
+  // Private member variables
+  std_msgs::Header header;
+  ServiceClient helloClient;
+  NodeHandle* nh;
 };
 
 #endif // TESTCLIENT_H

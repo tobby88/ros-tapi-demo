@@ -8,6 +8,8 @@
 using namespace ros;
 using namespace std;
 
+// Constructor/Destructor
+
 TestClient::TestClient(NodeHandle* nh)
 {
   this->nh = nh;
@@ -15,6 +17,8 @@ TestClient::TestClient(NodeHandle* nh)
 }
 
 TestClient::~TestClient() {}
+
+// Public member functions
 
 bool TestClient::Connect()
 {
