@@ -4,8 +4,8 @@
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
 #include "std_msgs/Header.h"
-#include "tobbyapi_testreceiver/Config.h"
-#include "tobbyapi_testreceiver/Hello.h"
+#include "tobbyapi_msgs/Config.h"
+#include "tobbyapi_msgs/Hello.h"
 #include <unordered_map>
 
 using namespace ros;
@@ -34,7 +34,7 @@ private:
 
   // Private member functions
   void gotData(const std_msgs::Bool::ConstPtr& msg);
-  void readConfigMsg(const tobbyapi_testreceiver::Config::ConstPtr& msg);
+  void readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg);
 };
 
 #endif // TESTRECEIVER_H
