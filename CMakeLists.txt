@@ -10,6 +10,9 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
+# Include the binary-dir just for QtCreator so it will find automatically generated files
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
