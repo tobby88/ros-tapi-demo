@@ -13,7 +13,8 @@ using namespace std;
 TestSender::TestSender(NodeHandle* nh)
 {
   this->nh = nh;
-  helloClient = nh->serviceClient<tobbyapi_testsender::Hello>("TobbyAPI/HelloServ");
+  helloClient =
+      nh->serviceClient<tobbyapi_testsender::Hello>("TobbyAPI/HelloServ");
 }
 
 TestSender::~TestSender() {}
