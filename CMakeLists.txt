@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(tobbytestclient)
 
+# Use specified C++ standard
+set(CMAKE_CXX_STANDARD 11)
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -107,16 +110,6 @@ catkin_package(
 ###########
 ## Build ##
 ###########
-
-## check c++11
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
-if(COMPILER_SUPPORTS_CXX11)
-    add_definitions(-std=c++11)
-#    add_definitions(-std=c++11 -Wall -pedantic) # more compiler output if necessary
-else()
-    message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} has no C++11 support. Please use a different C++ compiler.")
-endif()
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
