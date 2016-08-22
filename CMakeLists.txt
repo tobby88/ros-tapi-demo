@@ -129,7 +129,10 @@ include_directories(
 # add_dependencies(tobbytestoutput ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(tobbytestoutput src/main.cpp src/testoutput.cpp)
+add_executable(tobbytestoutput
+  src/main.cpp
+  src/testoutput.cpp
+)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
