@@ -1,5 +1,5 @@
-#include "enums.hpp"
 #include "testoutput.hpp"
+#include "enums.hpp"
 #include "tobbytestoutput/Config.h"
 #include "tobbytestoutput/Feature.h"
 #include <uuid/uuid.h>
@@ -7,17 +7,16 @@
 using namespace ros;
 using namespace std;
 
-TestOutput::TestOutput(NodeHandle *nh)
+TestOutput::TestOutput(NodeHandle* nh)
 {
   connected = false;
   this->nh = nh;
   helloClient = nh->serviceClient<tobbytestoutput::Hello>("TobbyAPI/HelloServ");
-  configSub = nh->subscribe("TobbyAPI/Config", 1000, &TestOutput::readConfigMsg, this);
+  configSub =
+      nh->subscribe("TobbyAPI/Config", 1000, &TestOutput::readConfigMsg, this);
 }
 
-TestOutput::~TestOutput()
-{
-}
+TestOutput::~TestOutput() {}
 
 bool TestOutput::Connect()
 {
@@ -53,7 +52,8 @@ bool TestOutput::Connect()
   hello.request.Features = features;
   if (helloClient.call(hello))
   {
-    ROS_INFO("Connection established, Status %u, Heartbeat %u", hello.response.Status, hello.response.Heartbeat);
+    ROS_INFO("Connection established, Status %u, Heartbeat %u",
+             hello.response.Status, hello.response.Heartbeat);
     connected = true;
   }
   else
@@ -65,17 +65,23 @@ bool TestOutput::Connect()
   return true;
 }
 
-void TestOutput::readConfigMsg(const tobbytestoutput::Config::ConstPtr& msg)
-{
-  ROS_INFO("Config Msg for: %s, should be connected to publisher %s with feature id %s to feature id %s, coefficient: %3.2f", msg->ReceiverUUID.c_str(), msg->SenderUUID.c_str(), msg->SenderFeatureUUID.c_str(), msg->ReceiverFeatureUUID.c_str(), msg->Coefficient);
-  if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid)
-  {
-    ROS_INFO("This message is for me! :)");
-    featureSub = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" + msg->SenderFeatureUUID, 1000, &TestOutput::gotData, this);
-  }
-}
-
 void TestOutput::gotData(const std_msgs::Bool::ConstPtr& msg)
 {
   ROS_INFO("Status: %d", msg->data);
+}
+
+void TestOutput::readConfigMsg(const tobbytestoutput::Config::ConstPtr& msg)
+{
+  ROS_INFO("Config Msg for: %s, should be connected to publisher %s with "
+           "feature id %s to feature id %s, coefficient: %3.2f",
+           msg->ReceiverUUID.c_str(), msg->SenderUUID.c_str(),
+           msg->SenderFeatureUUID.c_str(), msg->ReceiverFeatureUUID.c_str(),
+           msg->Coefficient);
+  if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid)
+  {
+    ROS_INFO("This message is for me! :)");
+    featureSub = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
+                                   msg->SenderFeatureUUID,
+                               1000, &TestOutput::gotData, this);
+  }
 }
