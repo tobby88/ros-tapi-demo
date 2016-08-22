@@ -1,7 +1,7 @@
 #include "testsender.hpp"
 #include "enums.hpp"
-#include "tobbyapi_testsender/Feature.h"
-#include "tobbyapi_testsender/Hello.h"
+#include "tobbyapi_msgs/Feature.h"
+#include "tobbyapi_msgs/Hello.h"
 #include <algorithm>
 #include <uuid/uuid.h>
 
@@ -14,7 +14,7 @@ TestSender::TestSender(NodeHandle* nh)
 {
   this->nh = nh;
   helloClient =
-      nh->serviceClient<tobbyapi_testsender::Hello>("TobbyAPI/HelloServ");
+      nh->serviceClient<tobbyapi_msgs::Hello>("TobbyAPI/HelloServ");
 }
 
 TestSender::~TestSender() {}
@@ -23,7 +23,7 @@ TestSender::~TestSender() {}
 
 bool TestSender::Connect()
 {
-  tobbyapi_testsender::Hello hello;
+  tobbyapi_msgs::Hello hello;
   header.stamp = Time::now();
   header.seq++;
   hello.request.Header = header;
@@ -40,7 +40,7 @@ bool TestSender::Connect()
   DeviceType deviceType = DeviceType::SenderDevice;
   hello.request.DeviceType = (unsigned short)deviceType;
 
-  tobbyapi_testsender::Feature feature1;
+  tobbyapi_msgs::Feature feature1;
   feature1.FeatureType = (unsigned short)FeatureType::Images;
   feature1.Name = "Kamera vorne (hinten oder so)";
   uuid_generate_random(uuid);
@@ -49,7 +49,7 @@ bool TestSender::Connect()
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   feature1.UUID = uuid_string;
 
-  tobbyapi_testsender::Feature feature2;
+  tobbyapi_msgs::Feature feature2;
   feature2.FeatureType = (unsigned short)FeatureType::Images;
   feature2.Name = "Kamera hinten (wirklich hinten!)";
   uuid_generate_random(uuid);
@@ -58,7 +58,7 @@ bool TestSender::Connect()
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   feature2.UUID = uuid_string;
 
-  tobbyapi_testsender::Feature feature3;
+  tobbyapi_msgs::Feature feature3;
   feature3.FeatureType = (unsigned short)FeatureType::Switch;
   feature3.Name = "irgendson Button";
   uuid_generate_random(uuid);
@@ -67,7 +67,7 @@ bool TestSender::Connect()
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   feature3.UUID = uuid_string;
 
-  vector<tobbyapi_testsender::Feature> features;
+  vector<tobbyapi_msgs::Feature> features;
   features.push_back(feature1);
   features.push_back(feature2);
   features.push_back(feature3);
