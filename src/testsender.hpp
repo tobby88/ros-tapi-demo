@@ -1,5 +1,5 @@
-#ifndef TESTCLIENT_H
-#define TESTCLIENT_H
+#ifndef TESTSENDER_H
+#define TESTSENDER_H
 
 #include "ros/ros.h"
 #include "std_msgs/Header.h"
@@ -7,12 +7,12 @@
 using namespace ros;
 using namespace std;
 
-class TestClient
+class TestSender
 {
 public:
   // Constructor/Destructor
-  TestClient(NodeHandle* nh);
-  ~TestClient();
+  TestSender(NodeHandle* nh);
+  ~TestSender();
 
   // Public member functions
   bool Connect();
@@ -24,4 +24,4 @@ private:
   NodeHandle* nh;
 };
 
-#endif // TESTCLIENT_H
+#endif // TESTSENDER_H

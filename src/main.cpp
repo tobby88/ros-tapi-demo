@@ -1,16 +1,16 @@
 #include "ros/ros.h"
-#include "testclient.hpp"
+#include "testsender.hpp"
 #include <chrono>
 #include <thread>
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "TobbyTestClient");
+  ros::init(argc, argv, "TobbyAPI_TestSender");
   ros::NodeHandle nh;
-  TestClient testclient(&nh);
+  TestSender testsender(&nh);
   while (ros::ok())
   {
-    testclient.Connect();
+    testsender.Connect();
     this_thread::sleep_for(chrono::milliseconds(1000));
   }
 

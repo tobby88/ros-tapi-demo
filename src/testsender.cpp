@@ -1,7 +1,7 @@
-#include "testclient.hpp"
+#include "testsender.hpp"
 #include "enums.hpp"
-#include "tobbytestclient/Feature.h"
-#include "tobbytestclient/Hello.h"
+#include "tobbyapi_testsender/Feature.h"
+#include "tobbyapi_testsender/Hello.h"
 #include <algorithm>
 #include <uuid/uuid.h>
 
@@ -10,19 +10,19 @@ using namespace std;
 
 // Constructor/Destructor
 
-TestClient::TestClient(NodeHandle* nh)
+TestSender::TestSender(NodeHandle* nh)
 {
   this->nh = nh;
-  helloClient = nh->serviceClient<tobbytestclient::Hello>("TobbyAPI/HelloServ");
+  helloClient = nh->serviceClient<tobbyapi_testsender::Hello>("TobbyAPI/HelloServ");
 }
 
-TestClient::~TestClient() {}
+TestSender::~TestSender() {}
 
 // Public member functions
 
-bool TestClient::Connect()
+bool TestSender::Connect()
 {
-  tobbytestclient::Hello hello;
+  tobbyapi_testsender::Hello hello;
   header.stamp = Time::now();
   header.seq++;
   hello.request.Header = header;
@@ -39,7 +39,7 @@ bool TestClient::Connect()
   DeviceType deviceType = DeviceType::SenderDevice;
   hello.request.DeviceType = (unsigned short)deviceType;
 
-  tobbytestclient::Feature feature1;
+  tobbyapi_testsender::Feature feature1;
   feature1.FeatureType = (unsigned short)FeatureType::Images;
   feature1.Name = "Kamera vorne (hinten oder so)";
   uuid_generate_random(uuid);
@@ -48,7 +48,7 @@ bool TestClient::Connect()
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   feature1.UUID = uuid_string;
 
-  tobbytestclient::Feature feature2;
+  tobbyapi_testsender::Feature feature2;
   feature2.FeatureType = (unsigned short)FeatureType::Images;
   feature2.Name = "Kamera hinten (wirklich hinten!)";
   uuid_generate_random(uuid);
@@ -57,7 +57,7 @@ bool TestClient::Connect()
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   feature2.UUID = uuid_string;
 
-  tobbytestclient::Feature feature3;
+  tobbyapi_testsender::Feature feature3;
   feature3.FeatureType = (unsigned short)FeatureType::Switch;
   feature3.Name = "irgendson Button";
   uuid_generate_random(uuid);
@@ -66,7 +66,7 @@ bool TestClient::Connect()
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   feature3.UUID = uuid_string;
 
-  vector<tobbytestclient::Feature> features;
+  vector<tobbyapi_testsender::Feature> features;
   features.push_back(feature1);
   features.push_back(feature2);
   features.push_back(feature3);

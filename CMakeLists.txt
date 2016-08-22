@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(tobbytestclient)
+project(tobbyapi_testsender)
 
 # Use specified C++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -133,17 +133,17 @@ include_directories(
 
 ## Declare a C++ executable
 # add_executable(tobbytestclient_node src/tobbytestclient_node.cpp)
-add_executable(tobbytestclient
+add_executable(tobbyapi_testsender
   src/main.cpp
-  src/testclient.cpp
+  src/testsender.cpp
 )
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(tobbytestclient ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tobbyapi_testsender ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(tobbytestclient
+target_link_libraries(tobbyapi_testsender
   uuid
   ${catkin_LIBRARIES}
 )
