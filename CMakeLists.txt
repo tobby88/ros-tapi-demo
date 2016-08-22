@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(tobbytestoutput)
+project(tobbyapi_testreceiver)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -129,17 +129,17 @@ include_directories(
 # add_dependencies(tobbytestoutput ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(tobbytestoutput
+add_executable(tobbyapi_testreceiver
   src/main.cpp
-  src/testoutput.cpp
+  src/testreceiver.cpp
 )
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(tobbytestoutput ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tobbyapi_testreceiver ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(tobbytestoutput
+target_link_libraries(tobbyapi_testreceiver
   uuid
   ${catkin_LIBRARIES}
 )

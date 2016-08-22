@@ -1,22 +1,22 @@
-#ifndef TESTOUTPUT_H
-#define TESTOUTPUT_H
+#ifndef TESTRECEIVER_H
+#define TESTRECEIVER_H
 
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
 #include "std_msgs/Header.h"
-#include "tobbytestoutput/Config.h"
-#include "tobbytestoutput/Hello.h"
+#include "tobbyapi_testreceiver/Config.h"
+#include "tobbyapi_testreceiver/Hello.h"
 #include <unordered_map>
 
 using namespace ros;
 using namespace std;
 
-class TestOutput
+class TestReceiver
 {
 public:
   // Constructor/Destructor
-  TestOutput(NodeHandle* nh);
-  ~TestOutput();
+  TestReceiver(NodeHandle* nh);
+  ~TestReceiver();
 
   // Public member functions
   bool Connect();
@@ -34,7 +34,7 @@ private:
 
   // Private member functions
   void gotData(const std_msgs::Bool::ConstPtr& msg);
-  void readConfigMsg(const tobbytestoutput::Config::ConstPtr& msg);
+  void readConfigMsg(const tobbyapi_testreceiver::Config::ConstPtr& msg);
 };
 
-#endif // TESTOUTPUT_H
+#endif // TESTRECEIVER_H

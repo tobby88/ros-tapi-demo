@@ -1,15 +1,15 @@
-#include "testoutput.hpp"
 #include "ros/ros.h"
+#include "testreceiver.hpp"
 
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "TobbyTestOutput");
+  ros::init(argc, argv, "TobbyAPI_TestReceiver");
   ros::NodeHandle nh;
-  TestOutput testOutput(&nh);
-  testOutput.Connect();
-  while(ros::ok())
+  TestReceiver testReceiver(&nh);
+  testReceiver.Connect();
+  while (ros::ok())
   {
-      ros::spin();
+    ros::spin();
   }
 
   return 0;

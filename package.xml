@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>tobbytestoutput</name>
+  <name>tobbyapi_testreceiver</name>
   <version>0.2.0</version>
-  <description>Output test package to test Tobby's API</description>
+  <description>Receiver node to test Tobby's API</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
