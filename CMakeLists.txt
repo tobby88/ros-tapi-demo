@@ -130,7 +130,10 @@ include_directories(
 
 ## Declare a C++ executable
 # add_executable(tobbytestclient_node src/tobbytestclient_node.cpp)
-add_executable(tobbytestclient src/main.cpp src/testclient.cpp)
+add_executable(tobbytestclient
+  src/main.cpp
+  src/testclient.cpp
+)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
