@@ -1,5 +1,4 @@
 #include "testreceiver.hpp"
-#include "enums.hpp"
 #include "tobbyapi_msgs/Config.h"
 #include "tobbyapi_msgs/Feature.h"
 #include <uuid/uuid.h>
@@ -35,10 +34,9 @@ bool TestReceiver::Connect()
 
   this->uuid = uuid_string;
   hello.request.UUID = uuid_string;
-  DeviceType deviceType = DeviceType::ReceiverDevice;
-  hello.request.DeviceType = (unsigned short)deviceType;
+  hello.request.DeviceType = tobbyapi_msgs::HelloRequest::Type_ReceiverDevice;
   tobbyapi_msgs::Feature feature1;
-  feature1.FeatureType = (unsigned short)FeatureType::Switch;
+  feature1.FeatureType = tobbyapi_msgs::Feature::Type_Switch;
   feature1.Name = "Button Test";
   /*uuid_generate_random (uuid);
   uuid_unparse (uuid, uuid_string);*/
@@ -52,9 +50,17 @@ bool TestReceiver::Connect()
   hello.request.Features = features;
   if (helloClient.call(hello))
   {
-    ROS_INFO("Connection established, Status %u, Heartbeat %u",
-             hello.response.Status, hello.response.Heartbeat);
-    connected = true;
+    if (hello.response.Status == tobbyapi_msgs::HelloResponse::StatusOK)
+    {
+      ROS_INFO("Connection established, Status OK, Heartbeat %u",
+               hello.response.Heartbeat);
+      connected = true;
+    }
+    else
+    {
+      ROS_INFO("Connection error, Heartbeat %u", hello.response.Heartbeat);
+      connected = false;
+    }
   }
   else
   {
