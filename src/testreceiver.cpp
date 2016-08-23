@@ -5,6 +5,9 @@
 
 using namespace ros;
 using namespace std;
+using namespace tobbyapi_msgs::Feature;
+using namespace tobbyapi_msgs::HelloRequest;
+using namespace tobbyapi_msgs::HelloResponse;
 
 TestReceiver::TestReceiver(NodeHandle* nh)
 {
@@ -34,9 +37,9 @@ bool TestReceiver::Connect()
 
   this->uuid = uuid_string;
   hello.request.UUID = uuid_string;
-  hello.request.DeviceType = tobbyapi_msgs::HelloRequest::Type_ReceiverDevice;
+  hello.request.DeviceType = Type_ReceiverDevice;
   tobbyapi_msgs::Feature feature1;
-  feature1.FeatureType = tobbyapi_msgs::Feature::Type_Switch;
+  feature1.FeatureType = Type_Switch;
   feature1.Name = "Button Test";
   /*uuid_generate_random (uuid);
   uuid_unparse (uuid, uuid_string);*/
@@ -50,7 +53,7 @@ bool TestReceiver::Connect()
   hello.request.Features = features;
   if (helloClient.call(hello))
   {
-    if (hello.response.Status == tobbyapi_msgs::HelloResponse::StatusOK)
+    if (hello.response.Status == StatusOK)
     {
       ROS_INFO("Connection established, Status OK, Heartbeat %u",
                hello.response.Heartbeat);
