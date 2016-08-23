@@ -6,9 +6,6 @@
 
 using namespace ros;
 using namespace std;
-using namespace tobbyapi_msgs::Feature;
-using namespace tobbyapi_msgs::HelloRequest;
-using namespace tobbyapi_msgs::HelloResponse;
 
 // Constructor/Destructor
 
@@ -37,10 +34,10 @@ bool TestSender::Connect()
   string uuid_string(uuid_array);
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   hello.request.UUID = uuid_string;
-  hello.request.DeviceType = Type_SenderDevice;
+  hello.request.DeviceType = tobbyapi_msgs::Hello::Request::Type_SenderDevice;
 
   tobbyapi_msgs::Feature feature1;
-  feature1.FeatureType = Type_Images;
+  feature1.FeatureType = tobbyapi_msgs::Feature::Type_Images;
   feature1.Name = "Kamera vorne (hinten oder so)";
   uuid_generate_random(uuid);
   uuid_unparse(uuid, uuid_array);
@@ -49,7 +46,7 @@ bool TestSender::Connect()
   feature1.UUID = uuid_string;
 
   tobbyapi_msgs::Feature feature2;
-  feature2.FeatureType = Type_Images;
+  feature2.FeatureType = tobbyapi_msgs::Feature::Type_Images;
   feature2.Name = "Kamera hinten (wirklich hinten!)";
   uuid_generate_random(uuid);
   uuid_unparse(uuid, uuid_array);
@@ -58,7 +55,7 @@ bool TestSender::Connect()
   feature2.UUID = uuid_string;
 
   tobbyapi_msgs::Feature feature3;
-  feature3.FeatureType = Type_Switch;
+  feature3.FeatureType = tobbyapi_msgs::Feature::Type_Switch;
   feature3.Name = "irgendson Button";
   uuid_generate_random(uuid);
   uuid_unparse(uuid, uuid_array);
@@ -73,7 +70,7 @@ bool TestSender::Connect()
   hello.request.Features = features;
   if (helloClient.call(hello))
   {
-    if (hello.response.Status == StatusOK)
+    if (hello.response.Status == tobbyapi_msgs::Hello::Response::StatusOK)
       ROS_INFO("Connection established, Status OK, Heartbeat %u",
                hello.response.Heartbeat);
     else
