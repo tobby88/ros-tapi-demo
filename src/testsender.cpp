@@ -1,5 +1,4 @@
 #include "testsender.hpp"
-#include "enums.hpp"
 #include "tobbyapi_msgs/Feature.h"
 #include "tobbyapi_msgs/Hello.h"
 #include <algorithm>
@@ -35,12 +34,10 @@ bool TestSender::Connect()
   string uuid_string(uuid_array);
   replace(uuid_string.begin(), uuid_string.end(), '-', '_');
   hello.request.UUID = uuid_string;
-
-  DeviceType deviceType = DeviceType::SenderDevice;
-  hello.request.DeviceType = (unsigned short)deviceType;
+  hello.request.DeviceType = tobbyapi_msgs::Hello::Request::Type_SenderDevice;
 
   tobbyapi_msgs::Feature feature1;
-  feature1.FeatureType = (unsigned short)FeatureType::Images;
+  feature1.FeatureType = tobbyapi_msgs::Feature::Type_Images;
   feature1.Name = "Kamera vorne (hinten oder so)";
   uuid_generate_random(uuid);
   uuid_unparse(uuid, uuid_array);
@@ -49,7 +46,7 @@ bool TestSender::Connect()
   feature1.UUID = uuid_string;
 
   tobbyapi_msgs::Feature feature2;
-  feature2.FeatureType = (unsigned short)FeatureType::Images;
+  feature2.FeatureType = tobbyapi_msgs::Feature::Type_Images;
   feature2.Name = "Kamera hinten (wirklich hinten!)";
   uuid_generate_random(uuid);
   uuid_unparse(uuid, uuid_array);
@@ -58,7 +55,7 @@ bool TestSender::Connect()
   feature2.UUID = uuid_string;
 
   tobbyapi_msgs::Feature feature3;
-  feature3.FeatureType = (unsigned short)FeatureType::Switch;
+  feature3.FeatureType = tobbyapi_msgs::Feature::Type_Switch;
   feature3.Name = "irgendson Button";
   uuid_generate_random(uuid);
   uuid_unparse(uuid, uuid_array);
@@ -73,8 +70,11 @@ bool TestSender::Connect()
   hello.request.Features = features;
   if (helloClient.call(hello))
   {
-    ROS_INFO("Connection established, Status %u, Heartbeat %u",
-             hello.response.Status, hello.response.Heartbeat);
+    if (hello.response.Status == tobbyapi_msgs::Hello::Response::StatusOK)
+      ROS_INFO("Connection established, Status OK, Heartbeat %u",
+               hello.response.Heartbeat);
+    else
+      ROS_INFO("Connection error, Heartbeat %u", hello.response.Heartbeat);
   }
   else
   {
