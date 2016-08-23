@@ -43,10 +43,18 @@ bool TestReceiver::Connect()
 
   uuid_string = "TestOutputFeatureUUID";
 
-  featureUuid = uuid_string;
+  featureUuid[0] = uuid_string;
   feature1.UUID = uuid_string;
+
+  tobbyapi_msgs::Feature feature2;
+  feature2.FeatureType = tobbyapi_msgs::Feature::Type_AnalogValue;
+  feature2.Name = "Analog Test";
+  feature2.UUID = "nochneUUID";
+  featureUuid[1] = "nochneUUID";
+
   vector<tobbyapi_msgs::Feature> features;
   features.push_back(feature1);
+  features.push_back(feature2);
   hello.request.Features = features;
   if (helloClient.call(hello))
   {
@@ -71,9 +79,14 @@ bool TestReceiver::Connect()
   return true;
 }
 
-void TestReceiver::gotData(const std_msgs::Bool::ConstPtr& msg)
+void TestReceiver::gotDataBool(const std_msgs::Bool::ConstPtr& msg)
 {
   ROS_INFO("Status: %d", msg->data);
+}
+
+void TestReceiver::gotDataFloat(const std_msgs::Float64::ConstPtr& msg)
+{
+  ROS_INFO("Status: %f", msg->data);
 }
 
 void TestReceiver::readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg)
@@ -83,11 +96,18 @@ void TestReceiver::readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg)
            msg->ReceiverUUID.c_str(), msg->SenderUUID.c_str(),
            msg->SenderFeatureUUID.c_str(), msg->ReceiverFeatureUUID.c_str(),
            msg->Coefficient);
-  if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid)
+  if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid[0])
   {
     ROS_INFO("This message is for me! :)");
-    featureSub = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
+    featureSub[0] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
                                    msg->SenderFeatureUUID,
-                               1000, &TestReceiver::gotData, this);
+                               1000, &TestReceiver::gotDataBool, this);
+  }
+  if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid[1])
+  {
+    ROS_INFO("This message is for me! :)");
+    featureSub[1] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
+                                   msg->SenderFeatureUUID,
+                               1000, &TestReceiver::gotDataFloat, this);
   }
 }

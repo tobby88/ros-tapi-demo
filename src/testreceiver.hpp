@@ -3,6 +3,7 @@
 
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
+#include "std_msgs/Float64.h"
 #include "std_msgs/Header.h"
 #include "tobbyapi_msgs/Config.h"
 #include "tobbyapi_msgs/Hello.h"
@@ -25,15 +26,16 @@ private:
   // Private member variables
   Subscriber configSub;
   bool connected;
-  Subscriber featureSub;
-  string featureUuid;
+  Subscriber featureSub[2];
+  string featureUuid[2];
   std_msgs::Header header;
   ServiceClient helloClient;
   NodeHandle* nh;
   string uuid;
 
   // Private member functions
-  void gotData(const std_msgs::Bool::ConstPtr& msg);
+  void gotDataBool(const std_msgs::Bool::ConstPtr& msg);
+  void gotDataFloat(const std_msgs::Float64::ConstPtr& msg);
   void readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg);
 };
 
