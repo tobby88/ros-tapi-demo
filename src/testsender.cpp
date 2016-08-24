@@ -1,8 +1,8 @@
 #include "testsender.hpp"
+#include <uuid/uuid.h>
+#include <algorithm>
 #include "tobbyapi_msgs/Feature.h"
 #include "tobbyapi_msgs/Hello.h"
-#include <algorithm>
-#include <uuid/uuid.h>
 
 using namespace ros;
 using namespace std;
@@ -15,7 +15,9 @@ TestSender::TestSender(NodeHandle* nh)
   helloClient = nh->serviceClient<tobbyapi_msgs::Hello>("TobbyAPI/HelloServ");
 }
 
-TestSender::~TestSender() {}
+TestSender::~TestSender()
+{
+}
 
 // Public member functions
 
@@ -71,8 +73,7 @@ bool TestSender::Connect()
   if (helloClient.call(hello))
   {
     if (hello.response.Status == tobbyapi_msgs::Hello::Response::StatusOK)
-      ROS_INFO("Connection established, Status OK, Heartbeat %u",
-               hello.response.Heartbeat);
+      ROS_INFO("Connection established, Status OK, Heartbeat %u", hello.response.Heartbeat);
     else
       ROS_INFO("Connection error, Heartbeat %u", hello.response.Heartbeat);
   }

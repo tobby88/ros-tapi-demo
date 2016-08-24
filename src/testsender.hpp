@@ -24,4 +24,4 @@ private:
   NodeHandle* nh;
 };
 
-#endif // TESTSENDER_H
+#endif  // TESTSENDER_H
