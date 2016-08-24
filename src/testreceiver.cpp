@@ -99,15 +99,21 @@ void TestReceiver::readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg)
   if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid[0])
   {
     ROS_INFO("This message is for me! :)");
-    featureSub[0] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
-                                   msg->SenderFeatureUUID,
-                               1000, &TestReceiver::gotDataBool, this);
+    if (msg->SenderUUID == "0" || msg->SenderFeatureUUID == "0")
+      featureSub[0].shutdown();
+    else
+      featureSub[0] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
+                                        msg->SenderFeatureUUID,
+                                    1000, &TestReceiver::gotDataBool, this);
   }
   if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid[1])
   {
     ROS_INFO("This message is for me! :)");
-    featureSub[1] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
-                                   msg->SenderFeatureUUID,
-                               1000, &TestReceiver::gotDataFloat, this);
+    if (msg->SenderUUID == "0" || msg->SenderFeatureUUID == "0")
+      featureSub[1].shutdown();
+    else
+      featureSub[1] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
+                                        msg->SenderFeatureUUID,
+                                    1000, &TestReceiver::gotDataFloat, this);
   }
 }
