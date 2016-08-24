@@ -1,7 +1,7 @@
 #include "testreceiver.hpp"
+#include <uuid/uuid.h>
 #include "tobbyapi_msgs/Config.h"
 #include "tobbyapi_msgs/Feature.h"
-#include <uuid/uuid.h>
 
 using namespace ros;
 using namespace std;
@@ -11,11 +11,12 @@ TestReceiver::TestReceiver(NodeHandle* nh)
   connected = false;
   this->nh = nh;
   helloClient = nh->serviceClient<tobbyapi_msgs::Hello>("TobbyAPI/HelloServ");
-  configSub = nh->subscribe("TobbyAPI/Config", 1000,
-                            &TestReceiver::readConfigMsg, this);
+  configSub = nh->subscribe("TobbyAPI/Config", 1000, &TestReceiver::readConfigMsg, this);
 }
 
-TestReceiver::~TestReceiver() {}
+TestReceiver::~TestReceiver()
+{
+}
 
 bool TestReceiver::Connect()
 {
@@ -60,8 +61,7 @@ bool TestReceiver::Connect()
   {
     if (hello.response.Status == tobbyapi_msgs::HelloResponse::StatusOK)
     {
-      ROS_INFO("Connection established, Status OK, Heartbeat %u",
-               hello.response.Heartbeat);
+      ROS_INFO("Connection established, Status OK, Heartbeat %u", hello.response.Heartbeat);
       connected = true;
     }
     else
@@ -93,18 +93,16 @@ void TestReceiver::readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg)
 {
   ROS_INFO("Config Msg for: %s, should be connected to publisher %s with "
            "feature id %s to feature id %s, coefficient: %3.2f",
-           msg->ReceiverUUID.c_str(), msg->SenderUUID.c_str(),
-           msg->SenderFeatureUUID.c_str(), msg->ReceiverFeatureUUID.c_str(),
-           msg->Coefficient);
+           msg->ReceiverUUID.c_str(), msg->SenderUUID.c_str(), msg->SenderFeatureUUID.c_str(),
+           msg->ReceiverFeatureUUID.c_str(), msg->Coefficient);
   if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid[0])
   {
     ROS_INFO("This message is for me! :)");
     if (msg->SenderUUID == "0" || msg->SenderFeatureUUID == "0")
       featureSub[0].shutdown();
     else
-      featureSub[0] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
-                                        msg->SenderFeatureUUID,
-                                    1000, &TestReceiver::gotDataBool, this);
+      featureSub[0] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" + msg->SenderFeatureUUID, 1000,
+                                    &TestReceiver::gotDataBool, this);
   }
   if (msg->ReceiverUUID == uuid && msg->ReceiverFeatureUUID == featureUuid[1])
   {
@@ -112,8 +110,7 @@ void TestReceiver::readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg)
     if (msg->SenderUUID == "0" || msg->SenderFeatureUUID == "0")
       featureSub[1].shutdown();
     else
-      featureSub[1] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" +
-                                        msg->SenderFeatureUUID,
-                                    1000, &TestReceiver::gotDataFloat, this);
+      featureSub[1] = nh->subscribe("TobbyAPI/" + msg->SenderUUID + "/" + msg->SenderFeatureUUID, 1000,
+                                    &TestReceiver::gotDataFloat, this);
   }
 }

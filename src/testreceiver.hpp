@@ -1,13 +1,13 @@
 #ifndef TESTRECEIVER_H
 #define TESTRECEIVER_H
 
+#include <unordered_map>
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
 #include "std_msgs/Float64.h"
 #include "std_msgs/Header.h"
 #include "tobbyapi_msgs/Config.h"
 #include "tobbyapi_msgs/Hello.h"
-#include <unordered_map>
 
 using namespace ros;
 using namespace std;
@@ -39,4 +39,4 @@ private:
   void readConfigMsg(const tobbyapi_msgs::Config::ConstPtr& msg);
 };
 
-#endif // TESTRECEIVER_H
+#endif  // TESTRECEIVER_H
