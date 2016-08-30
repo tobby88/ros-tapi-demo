@@ -10,8 +10,11 @@ namespace Tapi
 TestReceiver::TestReceiver(ros::NodeHandle* nh) : nh(nh)
 {
   tsub = new Tapi::Subscriber(nh, "Test2");
-  tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Bool, 5, &TestReceiver::gotDataBool), "Bool");
-  coefficient = tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Float64, 5, &TestReceiver::gotDataFloat), "Float");
+  ros::SubscribeOptions opt;
+  opt = SubscribeOptionsForTapi(std_msgs::Bool, 5, &TestReceiver::gotDataBool);
+  tsub->AddFeature(opt, "Bool Topic");
+  coefficient =
+      tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Float64, 5, &TestReceiver::gotDataFloat), "Float Topic");
 }
 
 TestReceiver::~TestReceiver()
