@@ -5,7 +5,7 @@
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "TobbyAPI_TestSender");
+  ros::init(argc, argv, "Tapi_TestSender");
   ros::NodeHandle nh;
   TestSender testsender(&nh);
   while (ros::ok())
