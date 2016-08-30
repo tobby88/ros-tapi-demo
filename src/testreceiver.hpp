@@ -6,21 +6,19 @@
 #include "std_msgs/Float64.h"
 #include "tapi_clientlib/subscriber.hpp"
 
-using namespace ros;
-using namespace std;
 
 class TestReceiver
 {
 public:
   // Constructor/Destructor
-  TestReceiver(NodeHandle* nh);
+  TestReceiver(ros::NodeHandle* nh);
   ~TestReceiver();
 
 private:
   // Private member variables
   double* coefficient;
-  NodeHandle* nh;
-  Tapi::Subscriber *tsub;
+  ros::NodeHandle* nh;
+  Tapi::Subscriber* tsub;
 
   // Private member functions
   void gotDataBool(const std_msgs::Bool::ConstPtr& msg);
