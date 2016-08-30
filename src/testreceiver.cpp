@@ -3,10 +3,9 @@
 #include "tapi_msgs/Config.h"
 #include "tapi_msgs/Feature.h"
 
-using namespace ros;
 using namespace std;
 
-TestReceiver::TestReceiver(NodeHandle* nh) : nh(nh)
+TestReceiver::TestReceiver(ros::NodeHandle* nh) : nh(nh)
 {
   tsub = new Tapi::Subscriber(nh, "Test2");
   tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Bool, 5, &TestReceiver::gotDataBool), "Bool");
