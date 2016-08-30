@@ -11,8 +11,8 @@ namespace Tapi
 TestSender::TestSender(ros::NodeHandle* nh) : nh(nh)
 {
   tpub = new Tapi::Publisher(nh, "TestSender");
-  pub[0] = tpub->AddFeature(tapi_msgs::Feature::Type_Switch, 10, "Button");
-  pub[1] = tpub->AddFeature(tapi_msgs::Feature::Type_AnalogValue, 10, "AnalogValue");
+  pub[0] = tpub->AddFeature<std_msgs::Bool>("Button", 10);
+  pub[1] = tpub->AddFeature<std_msgs::Float64>("AnalogValue", 10);
   number = 0.0;
   truefalse = false;
 }
