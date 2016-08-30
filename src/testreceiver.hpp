@@ -6,7 +6,8 @@
 #include "std_msgs/Float64.h"
 #include "tapi_clientlib/subscriber.hpp"
 
-
+namespace Tapi
+{
 class TestReceiver
 {
 public:
@@ -24,5 +25,6 @@ private:
   void gotDataBool(const std_msgs::Bool::ConstPtr& msg);
   void gotDataFloat(const std_msgs::Float64::ConstPtr& msg);
 };
+}
 
 #endif  // TESTRECEIVER_H

@@ -5,6 +5,8 @@
 
 using namespace std;
 
+namespace Tapi
+{
 TestReceiver::TestReceiver(ros::NodeHandle* nh) : nh(nh)
 {
   tsub = new Tapi::Subscriber(nh, "Test2");
@@ -29,4 +31,5 @@ void TestReceiver::gotDataFloat(const std_msgs::Float64::ConstPtr& msg)
   double value;
   value = msg->data * *coefficient;
   ROS_INFO("Double/Float64: %f with coefficient %f", value, *coefficient);
+}
 }
