@@ -9,8 +9,8 @@ using namespace std;
 TestReceiver::TestReceiver(NodeHandle* nh) : nh(nh)
 {
   tsub = new Tapi::Subscriber(nh, "Test2");
-  tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Bool, 1, &TestReceiver::gotDataBool), "Bool");
-  coefficient = tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Float64, 1, &TestReceiver::gotDataFloat), "Float");
+  tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Bool, 5, &TestReceiver::gotDataBool), "Bool");
+  coefficient = tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Float64, 5, &TestReceiver::gotDataFloat), "Float");
 }
 
 TestReceiver::~TestReceiver()
