@@ -3,10 +3,9 @@
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "TobbyAPI_TestReceiver");
+  ros::init(argc, argv, "Tapi_TestReceiver");
   ros::NodeHandle nh;
   TestReceiver testReceiver(&nh);
-  testReceiver.Connect();
   while (ros::ok())
   {
     ros::spin();

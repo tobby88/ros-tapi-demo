@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
-  <name>tobbyapi_testreceiver</name>
-  <version>0.3.0</version>
+  <name>tapi_testreceiver</name>
+  <version>0.4.1</version>
   <description>Receiver node to test Tobby's API</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
@@ -25,7 +25,7 @@
   <!-- Author tags are optional, mutiple are allowed, one per tag -->
   <!-- Authors do not have to be maintianers, but could be -->
   <!-- Example: -->
-  <author email="tobby@tobby.eu">Tobby</author>
+  <author email="tobby@tobby.eu">tobby</author>
 
 
   <!-- The *_depend tags are used to specify dependencies -->
@@ -41,12 +41,14 @@
   <!--   <test_depend>gtest</test_depend> -->
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>tobbyapi_msgs</build_depend>
+  <build_depend>tapi_clientlib</build_depend>
+  <build_depend>tapi_msgs</build_depend>
   <buildtool_depend>catkin</buildtool_depend>
   <run_depend>message_runtime</run_depend>
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
-  <run_depend>tobbyapi_msgs</run_depend>
+  <run_depend>tapi_clientlib</run_depend>
+  <run_depend>tapi_msgs</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

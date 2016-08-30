@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(tobbyapi_testreceiver)
+project(tapi_testreceiver)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -7,7 +7,8 @@ project(tobbyapi_testreceiver)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
-  tobbyapi_msgs
+  tapi_clientlib
+  tapi_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -104,8 +105,8 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES tobbytestoutput
-  CATKIN_DEPENDS message_runtime roscpp std_msgs tobbyapi_msgs
+  LIBRARIES tapi_clientlib
+  CATKIN_DEPENDS message_runtime roscpp std_msgs tapi_msgs
 #  DEPENDS system_lib
 )
 
@@ -130,18 +131,17 @@ include_directories(
 # add_dependencies(tobbytestoutput ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(tobbyapi_testreceiver
+add_executable(tapi_testreceiver
   src/main.cpp
   src/testreceiver.cpp
 )
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(tobbyapi_testreceiver ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tapi_testreceiver ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(tobbyapi_testreceiver
-  uuid
+target_link_libraries(tapi_testreceiver
   ${catkin_LIBRARIES}
 )
 
