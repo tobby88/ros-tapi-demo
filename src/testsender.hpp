@@ -2,26 +2,23 @@
 #define TESTSENDER_H
 
 #include "ros/ros.h"
-#include "std_msgs/Header.h"
+#include "tapi_clientlib/publisher.hpp"
 
-using namespace ros;
-using namespace std;
-
+namespace Tapi
+{
 class TestSender
 {
 public:
   // Constructor/Destructor
-  TestSender(NodeHandle* nh);
+  TestSender(ros::NodeHandle* nh);
   ~TestSender();
 
   // Public member functions
-  bool Connect();
 
 private:
   // Private member variables
-  std_msgs::Header header;
-  ServiceClient helloClient;
-  NodeHandle* nh;
+  ros::NodeHandle* nh;
+  Tapi::Publisher* tpub;
 };
 
 #endif  // TESTSENDER_H
