@@ -14,11 +14,16 @@ public:
   ~TestSender();
 
   // Public member functions
+  void SendTest();
 
 private:
   // Private member variables
   ros::NodeHandle* nh;
+  double number;
+  ros::Publisher* pub[2];
   Tapi::Publisher* tpub;
+  bool truefalse;
 };
+}
 
 #endif  // TESTSENDER_H
