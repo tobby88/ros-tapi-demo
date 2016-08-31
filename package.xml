@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>tapi_testsender</name>
+  <name>tapi_testpublisher</name>
   <version>0.3.1</version>
-  <description>Sender-client to test Tobby's API</description>
+  <description>Publisher node to test Tapi</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
@@ -19,7 +19,7 @@
   <!-- Url tags are optional, but mutiple are allowed, one per tag -->
   <!-- Optional attribute type can be: website, bugtracker, or repository -->
   <!-- Example: -->
-  <!-- <url type="website">http://wiki.ros.org/tobbyapi_testsender</url> -->
+  <!-- <url type="website">http://wiki.ros.org/tapi_testpublisher</url> -->
 
 
   <!-- Author tags are optional, mutiple are allowed, one per tag -->

@@ -1,4 +1,4 @@
-#include "testsender.hpp"
+#include "testpublisher.hpp"
 #include "std_msgs/Bool.h"
 #include "std_msgs/Float64.h"
 
@@ -8,22 +8,22 @@ namespace Tapi
 {
 // Constructor/Destructor
 
-TestSender::TestSender(ros::NodeHandle* nh) : nh(nh)
+TestPublisher::TestPublisher(ros::NodeHandle* nh) : nh(nh)
 {
-  tpub = new Tapi::Publisher(nh, "TestSender");
+  tpub = new Tapi::Publisher(nh, "TestPublisher");
   pub[0] = tpub->AddFeature<std_msgs::Bool>("Button", 10);
   pub[1] = tpub->AddFeature<std_msgs::Float64>("AnalogValue", 10);
   number = 0.0;
   truefalse = false;
 }
 
-TestSender::~TestSender()
+TestPublisher::~TestPublisher()
 {
 }
 
 // Public member functions
 
-void TestSender::SendTest()
+void TestPublisher::SendTest()
 {
   std_msgs::Bool m1;
   std_msgs::Float64 m2;

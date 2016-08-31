@@ -1,17 +1,17 @@
-#ifndef TESTSENDER_H
-#define TESTSENDER_H
+#ifndef TESTPUBLISHER_H
+#define TESTPUBLISHER_H
 
 #include "ros/ros.h"
 #include "tapi_clientlib/publisher.hpp"
 
 namespace Tapi
 {
-class TestSender
+class TestPublisher
 {
 public:
   // Constructor/Destructor
-  TestSender(ros::NodeHandle* nh);
-  ~TestSender();
+  TestPublisher(ros::NodeHandle* nh);
+  ~TestPublisher();
 
   // Public member functions
   void SendTest();
@@ -26,4 +26,4 @@ private:
 };
 }
 
-#endif  // TESTSENDER_H
+#endif  // TESTPUBLISHER_H

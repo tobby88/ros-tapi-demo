@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(tapi_testsender)
+project(tapi_testpublisher)
 
 # Use specified C++ standard
 set(CMAKE_CXX_STANDARD 11)
@@ -107,7 +107,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES tapi_testsender
+#  LIBRARIES tapi_testpublisher
   CATKIN_DEPENDS message_runtime roscpp std_msgs tapi_clientlib
 #  DEPENDS system_lib
 )
@@ -124,27 +124,27 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(tapi_testsender
-#   src/${PROJECT_NAME}/tapi_testsender.cpp
+# add_library(tapi_testpublisher
+#   src/${PROJECT_NAME}/tapi_testpublisher.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(tapi_testsender ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(tapi_testpublisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(tapi_testsender
+add_executable(tapi_testpublisher
   src/main.cpp
-  src/testsender.cpp
+  src/testpublisher.cpp
 )
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(tapi_testsender ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tapi_testpublisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(tapi_testsender
+target_link_libraries(tapi_testpublisher
   uuid
   ${catkin_LIBRARIES}
 )
@@ -164,7 +164,7 @@ target_link_libraries(tapi_testsender
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS tapi_testsender tapi_testsender
+# install(TARGETS tapi_testpublisher tapi_testpublisher
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -189,7 +189,7 @@ target_link_libraries(tapi_testsender
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_tapi_testsender.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_tapi_testpublisher.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
