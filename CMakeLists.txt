@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(tapi_testreceiver)
+project(tapi_testsubscriber)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -120,27 +120,27 @@ include_directories(
 )
 
 ## Declare a C++ library
-# add_library(tobbytestoutput
-#   src/${PROJECT_NAME}/tobbytestoutput.cpp
+# add_library(tapi_testsubscriber
+#   src/${PROJECT_NAME}/tapi_testsubscriber.cpp
 # )
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(tobbytestoutput ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(tapi_testsubscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-add_executable(tapi_testreceiver
+add_executable(tapi_testsubscriber
   src/main.cpp
-  src/testreceiver.cpp
+  src/testsubscriber.cpp
 )
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-add_dependencies(tapi_testreceiver ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tapi_testsubscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(tapi_testreceiver
+target_link_libraries(tapi_testsubscriber
   ${catkin_LIBRARIES}
 )
 
@@ -159,7 +159,7 @@ target_link_libraries(tapi_testreceiver
 # )
 
 ## Mark executables and/or libraries for installation
-# install(TARGETS tobbytestoutput tobbytestoutput_node
+# install(TARGETS tapi_testsubscriber tapi_testsubscriber
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -184,7 +184,7 @@ target_link_libraries(tapi_testreceiver
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_tobbytestoutput.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_tapi_testsubscriber.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

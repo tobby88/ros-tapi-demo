@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package>
-  <name>tapi_testreceiver</name>
-  <version>0.4.1</version>
-  <description>Receiver node to test Tobby's API</description>
+  <name>tapi_testsubscriber</name>
+  <version>0.4.2</version>
+  <description>Subscriber node to test Tapi</description>
 
   <!-- One maintainer tag required, multiple allowed, one person per tag --> 
   <!-- Example:  -->
