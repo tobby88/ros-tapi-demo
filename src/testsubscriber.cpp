@@ -1,7 +1,5 @@
 #include "testsubscriber.hpp"
 #include <uuid/uuid.h>
-#include "tapi_msgs/Config.h"
-#include "tapi_msgs/Feature.h"
 
 using namespace std;
 
