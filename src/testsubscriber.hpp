@@ -1,5 +1,5 @@
-#ifndef TESTRECEIVER_H
-#define TESTRECEIVER_H
+#ifndef TESTSUBSCRIBER_H
+#define TESTSUBSCRIBER_H
 
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
@@ -8,12 +8,12 @@
 
 namespace Tapi
 {
-class TestReceiver
+class TestSubscriber
 {
 public:
   // Constructor/Destructor
-  TestReceiver(ros::NodeHandle* nh);
-  ~TestReceiver();
+  TestSubscriber(ros::NodeHandle* nh);
+  ~TestSubscriber();
 
 private:
   // Private member variables
@@ -27,4 +27,4 @@ private:
 };
 }
 
-#endif  // TESTRECEIVER_H
+#endif  // TESTSUBSCRIBER_H

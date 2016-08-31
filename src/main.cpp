@@ -1,11 +1,11 @@
 #include "ros/ros.h"
-#include "testreceiver.hpp"
+#include "testsubscriber.hpp"
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "Tapi_TestReceiver");
+  ros::init(argc, argv, "Tapi_TestSubscriber");
   ros::NodeHandle nh;
-  Tapi::TestReceiver testReceiver(&nh);
+  Tapi::TestSubscriber testSubscriber(&nh);
   while (ros::ok())
   {
     ros::spin();
