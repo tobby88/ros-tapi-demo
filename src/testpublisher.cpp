@@ -19,6 +19,7 @@ TestPublisher::TestPublisher(ros::NodeHandle* nh) : nh(nh)
 
 TestPublisher::~TestPublisher()
 {
+  delete tpub;
 }
 
 // Public member functions
