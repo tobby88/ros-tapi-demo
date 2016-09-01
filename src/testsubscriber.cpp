@@ -17,6 +17,7 @@ TestSubscriber::TestSubscriber(ros::NodeHandle* nh) : nh(nh)
 
 TestSubscriber::~TestSubscriber()
 {
+  delete tsub;
 }
 
 void TestSubscriber::gotDataBool(const std_msgs::Bool::ConstPtr& msg)
