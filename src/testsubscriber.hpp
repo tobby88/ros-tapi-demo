@@ -4,7 +4,7 @@
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
 #include "std_msgs/Float64.h"
-#include "tapi_clientlib/subscriber.hpp"
+#include "tapi_lib/subscriber.hpp"
 
 namespace Tapi
 {
