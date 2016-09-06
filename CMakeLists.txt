@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 11)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   std_msgs
-  tapi_clientlib
+  tapi_lib
 )
 
 ## System dependencies are found with CMake's conventions
@@ -108,7 +108,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES tapi_testpublisher
-  CATKIN_DEPENDS message_runtime roscpp std_msgs tapi_clientlib
+  CATKIN_DEPENDS message_runtime roscpp std_msgs tapi_lib
 #  DEPENDS system_lib
 )
 

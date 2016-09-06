@@ -2,7 +2,7 @@
 #define TESTPUBLISHER_H
 
 #include "ros/ros.h"
-#include "tapi_clientlib/publisher.hpp"
+#include "tapi_lib/publisher.hpp"
 
 namespace Tapi
 {
