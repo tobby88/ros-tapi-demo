@@ -1,14 +1,26 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(tapi_demo)
 
+# Use specified C++ standard
+set(CMAKE_CXX_STANDARD 11)
+# ...and for older compilers
+add_definitions(-std=c++11)
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  std_msgs
+  tapi_lib
+)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
+# Qt
+# Find includes in corresponding build directories
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -97,8 +109,8 @@ find_package(catkin REQUIRED)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES tapi_demo
-#  CATKIN_DEPENDS other_catkin_pkg
+#  LIBRARIES tapi_testsubscriber
+  CATKIN_DEPENDS message_runtime roscpp std_msgs tapi_lib
 #  DEPENDS system_lib
 )
 
@@ -108,7 +120,9 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
 
 ## Declare a C++ library
 # add_library(tapi_demo
@@ -120,17 +134,20 @@ catkin_package(
 ## either from message generation or dynamic reconfigure
 # add_dependencies(tapi_demo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-## Declare a C++ executable
-# add_executable(tapi_demo_node src/tapi_demo_node.cpp)
+add_executable(tapi_fulldemo src/fulldemo.cpp)
+add_executable(tapi_testpublisher src/testpublisher.cpp)
+add_executable(tapi_testsubscriber src/testsubscriber.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(tapi_demo_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tapi_fulldemo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tapi_testpublisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tapi_testsubscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(tapi_demo_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(tapi_fulldemo ${catkin_LIBRARIES})
+target_link_libraries(tapi_testpublisher uuid ${catkin_LIBRARIES})
+target_link_libraries(tapi_testsubscriber ${catkin_LIBRARIES})
 
 #############
 ## Install ##
