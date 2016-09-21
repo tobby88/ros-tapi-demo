@@ -6,6 +6,8 @@
 #include "tapi_lib/serviceserver.hpp"
 #include "tapi_lib/subscriber.hpp"
 
+namespace Tapi
+{
 class Test
 {
 public:
@@ -27,3 +29,4 @@ private:
   void gotit(const std_msgs::Bool::ConstPtr &msg);
   bool hello(tapi_lib::Hello::Request &helloReq, tapi_lib::Hello::Response &helloResp);
 };
+}

@@ -4,6 +4,8 @@
 
 using namespace std;
 
+namespace Tapi
+{
 // Constructor/Desctructor
 
 Test::Test(ros::NodeHandle* nh) : nh(nh)
@@ -65,12 +67,13 @@ bool Test::hello(tapi_lib::Hello::Request& helloReq, tapi_lib::Hello::Response& 
   ROS_INFO("Service call!");
   helloResp.Status = tapi_lib::HelloResponse::StatusError;
 }
+}
 
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "TesterNode");
   ros::NodeHandle nh;
-  Test test(&nh);
+  Tapi::Test test(&nh);
   ros::Rate loop_rate(2);
   while (ros::ok())
   {
