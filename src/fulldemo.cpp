@@ -68,7 +68,11 @@ FullDemo::FullDemo(ros::NodeHandle* nh) : nh(nh)
 
 FullDemo::~FullDemo()
 {
-  // TODO: Delete objects
+  delete spinner;
+  delete tpub;
+  delete tsub;
+  delete tserv;
+  delete tclient;
 }
 
 void FullDemo::Send()
