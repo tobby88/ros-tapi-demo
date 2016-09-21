@@ -7,7 +7,7 @@ namespace Tapi
 {
 // Constructor/Desctructor
 
-Test::Test(ros::NodeHandle* nh) : nh(nh)
+FullDemo::FullDemo(ros::NodeHandle* nh) : nh(nh)
 {
   spinner = new ros::AsyncSpinner(1);
   spinner->start();
@@ -16,12 +16,12 @@ Test::Test(ros::NodeHandle* nh) : nh(nh)
   dings = false;
   tsub = new Tapi::Subscriber(nh, "Test2");
   ros::SubscribeOptions opt;
-  opt = SubscribeOptionsForTapi(std_msgs::Bool, 10, &Test::gotit);
+  opt = SubscribeOptionsForTapi(std_msgs::Bool, 10, &FullDemo::gotit);
   tsub->AddFeature(opt, "test");
 
   tserv = new Tapi::ServiceServer(nh, "TestServiceServer");
   ros::AdvertiseServiceOptions opt2;
-  opt2 = ServiceServerOptionsForTapi(tapi_lib::Hello, &Test::hello);
+  opt2 = ServiceServerOptionsForTapi(tapi_lib::Hello, &FullDemo::hello);
   tserv->AddFeature(opt2, "ServiceServer");
 
   tclient = new Tapi::ServiceClient(nh, "TestServiceClient");
@@ -32,12 +32,12 @@ Test::Test(ros::NodeHandle* nh) : nh(nh)
     ROS_INFO("Service client is a null pointer...");
 }
 
-Test::~Test()
+FullDemo::~FullDemo()
 {
   // TODO: Delete objects
 }
 
-void Test::Send()
+void FullDemo::Send()
 {
   if (dings)
     dings = false;
@@ -56,12 +56,12 @@ void Test::Send()
   }
 }
 
-void Test::gotit(const std_msgs::Bool::ConstPtr& msg)
+void FullDemo::gotit(const std_msgs::Bool::ConstPtr& msg)
 {
   ROS_INFO("%d", msg->data);
 }
 
-bool Test::hello(tapi_lib::Hello::Request& helloReq, tapi_lib::Hello::Response& helloResp)
+bool FullDemo::hello(tapi_lib::Hello::Request& helloReq, tapi_lib::Hello::Response& helloResp)
 {
   ROS_INFO("Service call!");
   helloResp.Status = tapi_lib::HelloResponse::StatusError;
@@ -72,7 +72,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc, argv, "TesterNode");
   ros::NodeHandle nh;
-  Tapi::Test test(&nh);
+  Tapi::FullDemo test(&nh);
   ros::Rate loop_rate(2);
   while (ros::ok())
   {

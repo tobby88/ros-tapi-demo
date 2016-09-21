@@ -4,11 +4,11 @@
 
 namespace Tapi
 {
-class Test
+class FullDemo
 {
 public:
-  explicit Test(ros::NodeHandle *nh);
-  ~Test();
+  explicit FullDemo(ros::NodeHandle *nh);
+  ~FullDemo();
   void Send();
 
 private:
