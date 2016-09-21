@@ -47,7 +47,7 @@ FullDemo::FullDemo(ros::NodeHandle* nh) : nh(nh)
   spinner->start();
   tpub = new Tapi::Publisher(nh, "Test");
   pub = tpub->AddFeature<std_msgs::Bool>("testbutton", 10);
-  dings = false;
+  turn = false;
   tsub = new Tapi::Subscriber(nh, "Test2");
   ros::SubscribeOptions opt;
   opt = SubscribeOptionsForTapi(std_msgs::Bool, 10, &FullDemo::gotit);
@@ -73,12 +73,12 @@ FullDemo::~FullDemo()
 
 void FullDemo::Send()
 {
-  if (dings)
-    dings = false;
+  if (turn)
+    turn = false;
   else
-    dings = true;
+    turn = true;
   std_msgs::Bool blubb;
-  blubb.data = dings;
+  blubb.data = turn;
   pub->publish(blubb);
   if (*serviceclient)
   {
@@ -104,7 +104,7 @@ bool FullDemo::hello(tapi_lib::Hello::Request& helloReq, tapi_lib::Hello::Respon
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "TesterNode");
+  ros::init(argc, argv, "Tapi_FullDemo");
   ros::NodeHandle nh;
   Tapi::FullDemo test(&nh);
   ros::Rate loop_rate(2);

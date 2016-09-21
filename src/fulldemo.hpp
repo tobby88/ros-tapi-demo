@@ -46,7 +46,7 @@ public:
   void Send();
 
 private:
-  bool dings;
+  bool turn;
   ros::NodeHandle *nh;
   ros::Publisher *pub;
   ros::ServiceClient **serviceclient;
