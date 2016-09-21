@@ -1,10 +1,6 @@
 #include "ros/ros.h"
 #include "std_msgs/Bool.h"
-#include "tapi_lib/Hello.h"
-#include "tapi_lib/publisher.hpp"
-#include "tapi_lib/serviceclient.hpp"
-#include "tapi_lib/serviceserver.hpp"
-#include "tapi_lib/subscriber.hpp"
+#include "tapi_lib/tapi_lib.hpp"
 
 namespace Tapi
 {
