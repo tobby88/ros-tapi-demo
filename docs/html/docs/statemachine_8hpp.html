@@ -1,5 +1,5 @@
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-<title>tapi_demo: fulldemo.hpp File Reference</title>
+<title>tapi_demo: statemachine.hpp File Reference</title>
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 <link href="tabs.css" rel="stylesheet" type="text/css">
 </head>
@@ -30,37 +30,38 @@
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">fulldemo.hpp File Reference<div class="ingroups"><a class="el" href="group__tapi__demo__fulldemo.html">FullDemo</a></div></div>  </div>
+<div class="title">statemachine.hpp File Reference<div class="ingroups"><a class="el" href="group__tapi__demo__statemachine.html">StateMachine</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Declaration of the <a class="el" href="classTapi_1_1FullDemo.html" title="Connect to tapi_core with a Bool subscriber, a Bool publisher, a Hello ServiceServer and a Hello Serv...">Tapi::FullDemo</a>-class and definition of its member variables.  
+<p>Declaration of the <a class="el" href="classTapi_1_1StateMachine.html" title="Simple state machine. Does nothing but publishing it&#39;s states. ">Tapi::StateMachine</a>-class and definition of its member variables.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;ros/ros.h&quot;</code><br />
-<code>#include &quot;std_msgs/Bool.h&quot;</code><br />
+<div class="textblock"><code>#include &lt;chrono&gt;</code><br />
+<code>#include &lt;thread&gt;</code><br />
+<code>#include &quot;ros/ros.h&quot;</code><br />
 <code>#include &quot;tapi_lib/tapi_lib.hpp&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for fulldemo.hpp:</div>
+Include dependency graph for statemachine.hpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="fulldemo_8hpp__incl.png" border="0" usemap="#fulldemo_8hpp" alt=""/></div>
-<map name="fulldemo_8hpp" id="fulldemo_8hpp">
+<div class="center"><img src="statemachine_8hpp__incl.png" border="0" usemap="#statemachine_8hpp" alt=""/></div>
+<map name="statemachine_8hpp" id="statemachine_8hpp">
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><img src="fulldemo_8hpp__dep__incl.png" border="0" usemap="#fulldemo_8hppdep" alt=""/></div>
-<map name="fulldemo_8hppdep" id="fulldemo_8hppdep">
-<area shape="rect" id="node2" href="fulldemo_8cpp.html" title="Defintion of the Tapi::FullDemo&#45;class. " alt="" coords="5,80,101,107"/>
+<div class="center"><img src="statemachine_8hpp__dep__incl.png" border="0" usemap="#statemachine_8hppdep" alt=""/></div>
+<map name="statemachine_8hppdep" id="statemachine_8hppdep">
+<area shape="rect" id="node2" href="statemachine_8cpp.html" title="Defintion of the Tapi::StateMachine&#45;class. " alt="" coords="5,80,131,107"/>
 </map>
 </div>
 </div>
-<p><a href="fulldemo_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="statemachine_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTapi_1_1FullDemo.html">Tapi::FullDemo</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Connect to <code>tapi_core</code> with a <code>Bool</code> subscriber, a <code>Bool</code> publisher, a <code>Hello</code> <code>ServiceServer</code> and a <code>Hello</code> <code>ServiceClient</code>. Sends/Calls twice a second.  <a href="classTapi_1_1FullDemo.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTapi_1_1StateMachine.html">Tapi::StateMachine</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple state machine. Does nothing but publishing it's states.  <a href="classTapi_1_1StateMachine.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -69,11 +70,11 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declaration of the <a class="el" href="classTapi_1_1FullDemo.html" title="Connect to tapi_core with a Bool subscriber, a Bool publisher, a Hello ServiceServer and a Hello Serv...">Tapi::FullDemo</a>-class and definition of its member variables. </p>
+<div class="textblock"><p>Declaration of the <a class="el" href="classTapi_1_1StateMachine.html" title="Simple state machine. Does nothing but publishing it&#39;s states. ">Tapi::StateMachine</a>-class and definition of its member variables. </p>
 <dl class="section author"><dt>Author</dt><dd>Tobias Holst </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>06 Sep 2016 </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>22 Sep 2016 </dd></dl>
 
-<p>Definition in file <a class="el" href="fulldemo_8hpp_source.html">fulldemo.hpp</a>.</p>
+<p>Definition in file <a class="el" href="statemachine_8hpp_source.html">statemachine.hpp</a>.</p>
 </div></div><!-- contents -->
 
 <br clear="all" />

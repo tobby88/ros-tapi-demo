@@ -135,17 +135,20 @@ include_directories(
 # add_dependencies(tapi_demo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 add_executable(tapi_fulldemo src/fulldemo.cpp)
+add_executable(tapi_statemachine src/statemachine.cpp)
 add_executable(tapi_testpublisher src/testpublisher.cpp)
 add_executable(tapi_testsubscriber src/testsubscriber.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 add_dependencies(tapi_fulldemo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(tapi_statemachine ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(tapi_testpublisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(tapi_testsubscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(tapi_fulldemo ${catkin_LIBRARIES})
+target_link_libraries(tapi_statemachine ${catkin_LIBRARIES})
 target_link_libraries(tapi_testpublisher uuid ${catkin_LIBRARIES})
 target_link_libraries(tapi_testsubscriber ${catkin_LIBRARIES})
 
