@@ -32,6 +32,15 @@
  *  Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.*
  ******************************************************************************/
 
+/*!
+ * \defgroup tapi_demo_testsubscriber TestSubscriber
+ * \file testsubscriber.cpp
+ * \ingroup tapi_demo_testsubscriber
+ * \author Tobias Holst
+ * \date 28 Jul 2016
+ * \brief Defintion of the Tapi::TestSubscriber-class
+ */
+
 #include "testsubscriber.hpp"
 #include <uuid/uuid.h>
 
@@ -41,10 +50,16 @@ namespace Tapi
 {
 TestSubscriber::TestSubscriber(ros::NodeHandle* nh) : nh(nh)
 {
+  // Create the Subscribers - first the "helper"
   tsub = new Tapi::Subscriber(nh, "TestSubscriber");
+
+  // Now way one to create a topic - for the Bool topic. Throw away the coefficient when calling AddFeature since it's
+  // not necessary for Bool topics anyway
   ros::SubscribeOptions opt;
   opt = SubscribeOptionsForTapi(std_msgs::Bool, 5, &TestSubscriber::gotDataBool);
   tsub->AddFeature(opt, "Bool Topic");
+
+  // And way two to create a topic - for the Float topic. Here it's important to save the coefficient as well
   coefficient =
       tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::Float64, 5, &TestSubscriber::gotDataFloat), "Float Topic");
 }
@@ -70,15 +85,22 @@ void TestSubscriber::gotDataFloat(const std_msgs::Float64::ConstPtr& msg)
 }
 }
 
+/*!
+ * \brief Main function of the TestSubscriber
+ *
+ * Main function of the TestSubscriber to initialize ROS, its NodeHandle and then create the TestSubscriber
+ * \param argc Number of arguments when started from the console
+ * \param argv \c char pointer to the \c char arrays of the given arguments
+ * \return 0 when exited correctly
+ * \see Tapi::TestSubscriber
+ */
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "Tapi_TestSubscriber");
   ros::NodeHandle nh;
   Tapi::TestSubscriber testSubscriber(&nh);
   while (ros::ok())
-  {
-    ros::spin();
-  }
+    ros::spinOnce();
 
   return 0;
 }

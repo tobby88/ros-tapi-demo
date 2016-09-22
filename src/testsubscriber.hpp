@@ -32,6 +32,14 @@
  *  Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.*
  ******************************************************************************/
 
+/*!
+ * \file testsubscriber.hpp
+ * \ingroup tapi_demo_testsubscriber
+ * \author Tobias Holst
+ * \date 28 Jul 2016
+ * \brief Declaration of the Tapi::TestSubscriber-class and definition of its member variables
+ */
+
 #ifndef TESTSUBSCRIBER_H
 #define TESTSUBSCRIBER_H
 
@@ -42,21 +50,58 @@
 
 namespace Tapi
 {
+/*!
+ * \brief Connect to tapi_core with two subscribers and just prints the data on the console when connected. Has a \c
+ * Bool and a \c Float64 topic.
+ * \author Tobias Holst
+ * \version 1.0.1
+ */
 class TestSubscriber
 {
 public:
   // Constructor/Destructor
+
+  /*!
+   * \brief Create a TestSubscriber object to connect to tapi_core and print the data on the console when connected. Has
+   * a \c Bool and a \c Float64 topic.
+   * \param nh Pointer to a \c ros::NodeHandle created outside of this class
+   */
   TestSubscriber(ros::NodeHandle* nh);
+
+  /*!
+   * \brief Delete the Tapi::Subscriber object
+   * \c Tapi::Subscriber in \c tapi_lib package
+   */
   ~TestSubscriber();
 
 private:
   // Private member variables
+
+  /*!
+   * \brief coefficient to multiply all Float64 values with
+   * \see Tapi::TestSubscriber::gotDataFloat
+   */
   double* coefficient;
+
+  //! NodeHandle-pointer necessary to create subscribers, publishers and services.
   ros::NodeHandle* nh;
+
+  //! \c tapi_lib based Subscriber object to create Tapi compliant Subscribers
   Tapi::Subscriber* tsub;
 
   // Private member functions
+
+  /*!
+   * \brief Called by a ros callback when a new \c Bool has been got. Then it prints its state on the console.
+   * \param msg The message waiting in the ros message queue where the \c Bool is stored
+   */
   void gotDataBool(const std_msgs::Bool::ConstPtr& msg);
+
+  /*!
+   * \brief Called by a ros callback when a new \c Float64 has been got. Then it multiplies its value with the
+   * configured coefficient (configured by the connection) and prints the result on the console.
+   * \param msg The message waiting in the ros message queue where the \c Float64 is stored
+   */
   void gotDataFloat(const std_msgs::Float64::ConstPtr& msg);
 };
 }

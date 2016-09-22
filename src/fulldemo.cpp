@@ -32,6 +32,15 @@
  *  Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.*
  ******************************************************************************/
 
+/*!
+ * \defgroup tapi_demo_fulldemo FullDemo
+ * \file fulldemo.cpp
+ * \ingroup tapi_demo_fulldemo
+ * \author Tobias Holst
+ * \date 06 Sep 2016
+ * \brief Defintion of the Tapi::FullDemo-class
+ */
+
 #include "fulldemo.hpp"
 #include <string>
 
@@ -43,27 +52,32 @@ namespace Tapi
 
 FullDemo::FullDemo(ros::NodeHandle* nh) : nh(nh)
 {
+  // Create the asynchronous spinner which sends an receives data in the backround and calls the callback routines.
   spinner = new ros::AsyncSpinner(1);
   spinner->start();
+
+  // Create the Publisher helper object and the Publisher itself
   tpub = new Tapi::Publisher(nh, "Test");
   pub = tpub->AddFeature<std_msgs::Bool>("testbutton", 10);
+
+  // Initial value
   turn = false;
+
+  // Create the Subscriber
   tsub = new Tapi::Subscriber(nh, "Test2");
   ros::SubscribeOptions opt;
   opt = SubscribeOptionsForTapi(std_msgs::Bool, 10, &FullDemo::gotit);
   tsub->AddFeature(opt, "test");
 
+  // Create the ServiceServer
   tserv = new Tapi::ServiceServer(nh, "TestServiceServer");
   ros::AdvertiseServiceOptions opt2;
   opt2 = ServiceServerOptionsForTapi(tapi_lib::Hello, &FullDemo::hello);
   tserv->AddFeature(opt2, "ServiceServer");
 
+  // Create the ServiceClient
   tclient = new Tapi::ServiceClient(nh, "TestServiceClient");
   serviceclient = tclient->AddFeature<tapi_lib::Hello>("hallo");
-  if (*serviceclient)
-    ROS_INFO("There is a service client! :)");
-  else
-    ROS_INFO("Service client is a null pointer...");
 }
 
 FullDemo::~FullDemo()
@@ -77,13 +91,12 @@ FullDemo::~FullDemo()
 
 void FullDemo::Send()
 {
-  if (turn)
-    turn = false;
-  else
-    turn = true;
-  std_msgs::Bool blubb;
-  blubb.data = turn;
-  pub->publish(blubb);
+  // Create a Bool message and publish it
+  std_msgs::Bool temp;
+  temp.data = turn;
+  pub->publish(temp);
+
+  // Check if the ServiceClient is connected and if yes call it
   if (*serviceclient)
   {
     tapi_lib::Hello msg;
@@ -92,6 +105,12 @@ void FullDemo::Send()
     else
       ROS_INFO("No response :(");
   }
+
+  // Change the value of turn to send a different Bool message next time
+  if (turn)
+    turn = false;
+  else
+    turn = true;
 }
 
 void FullDemo::gotit(const std_msgs::Bool::ConstPtr& msg)
@@ -103,9 +122,19 @@ bool FullDemo::hello(tapi_lib::Hello::Request& helloReq, tapi_lib::Hello::Respon
 {
   ROS_INFO("Service call!");
   helloResp.Status = tapi_lib::HelloResponse::StatusError;
+  return true;
 }
 }
 
+/*!
+ * \brief Main function of the FullDemo
+ *
+ * Main function of the FullDemo to initialize ROS, its NodeHandle and then create the FullDemo object
+ * \param argc Number of arguments when started from the console
+ * \param argv \c char pointer to the \c char arrays of the given arguments
+ * \return 0 when exited correctly
+ * \see Tapi::FullDemo
+ */
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "Tapi_FullDemo");

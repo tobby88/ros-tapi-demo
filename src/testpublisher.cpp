@@ -32,6 +32,15 @@
  *  Programm erhalten haben. Wenn nicht, siehe <http://www.gnu.org/licenses/>.*
  ******************************************************************************/
 
+/*!
+ * \defgroup tapi_demo_testpublisher TestPublisher
+ * \file testpublisher.cpp
+ * \ingroup tapi_demo_testpublisher
+ * \author Tobias Holst
+ * \date 26 Jul 2016
+ * \brief Defintion of the Tapi::TestPublisher-class
+ */
+
 #include "testpublisher.hpp"
 #include "std_msgs/Bool.h"
 #include "std_msgs/Float64.h"
@@ -44,15 +53,24 @@ namespace Tapi
 
 TestPublisher::TestPublisher(ros::NodeHandle* nh) : nh(nh)
 {
+  // Create the helper to create Tapi-compliant publishers and then create the two publishers
   tpub = new Tapi::Publisher(nh, "TestPublisher");
   pub[0] = tpub->AddFeature<std_msgs::Bool>("Button", 10);
   pub[1] = tpub->AddFeature<std_msgs::Float64>("AnalogValue", 10);
+
+  // Initial values vor SendTest
   number = 0.0;
   truefalse = false;
+
+  // Create an asynchronous spinner which will actually send the data of SendTest in background
+  spinner = new ros::AsyncSpinner(1);
+  spinner->start();
 }
 
 TestPublisher::~TestPublisher()
 {
+  spinner->stop();
+  delete spinner;
   delete tpub;
 }
 
@@ -60,12 +78,17 @@ TestPublisher::~TestPublisher()
 
 void TestPublisher::SendTest()
 {
+  // Create the two messages with the current data in this class
   std_msgs::Bool m1;
   std_msgs::Float64 m2;
   m1.data = truefalse;
   m2.data = number;
+
+  // Publish the messages
   pub[0]->publish(m1);
   pub[1]->publish(m2);
+
+  // Now change the values of the two variables used for message generation
   if (truefalse)
     truefalse = false;
   else
@@ -74,6 +97,15 @@ void TestPublisher::SendTest()
 }
 }
 
+/*!
+ * \brief Main function of the TestPublisher
+ *
+ * Main function of the TestPublisher to initialize ROS, its NodeHandle and then create the TestPublisher
+ * \param argc Number of arguments when started from the console
+ * \param argv \c char pointer to the \c char arrays of the given arguments
+ * \return 0 when exited correctly
+ * \see Tapi::TestPublisher
+ */
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "Tapi_TestPublisher");
@@ -82,10 +114,8 @@ int main(int argc, char** argv)
   ros::Rate loop_rate(1);
   while (ros::ok())
   {
-    ros::spinOnce();
     loop_rate.sleep();
     testPublisher.SendTest();
-    ros::spinOnce();
   }
 
   return 0;
