@@ -33,123 +33,102 @@
  ******************************************************************************/
 
 /*!
- * \defgroup tapi_demo_statemachine StateMachine
- * \file statemachine.cpp
- * \ingroup tapi_demo_statemachine
+ * \defgroup tapi_demo_statemachine_output StateMachineOutput
+ * \file statemachineout.cpp
+ * \ingroup tapi_demo_statemachine_output
  * \author Tobias Holst
  * \date 22 Sep 2016
- * \brief Defintion of the Tapi::StateMachine-class
+ * \brief Defintion of the Tapi::StateMachineOut-class
  */
 
-#include "statemachine.hpp"
-#include "std_msgs/String.h"
+#include "statemachineout.hpp"
+#include <map>
 
 using namespace std;
 
 namespace Tapi
 {
-// Constructor/Destructor
-StateMachine::StateMachine(ros::NodeHandle *nh) : nh(nh)
+// Constructor/Destrurctor
+StateMachineOut::StateMachineOut(ros::NodeHandle *nh) : nh(nh)
 {
-  // Generate three demo states
-  tapi_lib::State state1;
-  state1.ID = "State1";
-  state1.Name = "State 1";
-  tapi_lib::Transition trans1;
-  trans1.Condition = "Wait 1 second";
-  trans1.ToID = "State2";
-  state1.Transitions.push_back(trans1);
-  states.push_back(state1);
+  // Create ServiceClient
+  tclient = new Tapi::ServiceClient(nh, "StateMachine Output");
+  client = tclient->AddFeature<tapi_lib::GetStateMachine>("Get StateMachine States");
 
-  tapi_lib::State state2;
-  state2.ID = "State2";
-  state2.Name = "State 2";
-  tapi_lib::Transition trans2;
-  trans2.Condition = "Wait 1 second";
-  trans2.ToID = "State3";
-  state2.Transitions.push_back(trans2);
-  states.push_back(state2);
-
-  tapi_lib::State state3;
-  state3.ID = "State3";
-  state3.Name = "State 3 with two transistions";
-  tapi_lib::Transition trans31;
-  trans31.Condition = "Wait 1 second";
-  trans31.ToID = "State1";
-  tapi_lib::Transition trans32;
-  trans32.Condition = "Never & Nothing";
-  trans32.ToID = "State2";
-  state3.Transitions.push_back(trans31);
-  state3.Transitions.push_back(trans32);
-  states.push_back(state3);
-
-  // Create the current-state-publisher
-  tpub = new Tapi::Publisher(nh, "StateMachine Test");
-  pub = tpub->AddFeature<std_msgs::String>("Current State", 10);
-
-  // Create the service to ask for the available states
-  tserv = new Tapi::ServiceServer(nh, "StateMachine Test");
-  tserv->AddFeature(ServiceServerOptionsForTapi(tapi_lib::GetStateMachine, &StateMachine::smCall), "StateMachine "
-                                                                                                   "States");
-
-  // Start the thread which changes the current state once a second
-  changeStateThread = new thread(&StateMachine::changeState, this);
+  // Create the subscriber to get the current state
+  tsub = new Tapi::Subscriber(nh, "StateMachine Output");
+  tsub->AddFeature(SubscribeOptionsForTapi(std_msgs::String, 10, &StateMachineOut::current), "Get Current State");
 }
 
-StateMachine::~StateMachine()
+StateMachineOut::~StateMachineOut()
 {
-  delete tpub;
-  delete tserv;
-  changeStateThread->join();
-  delete changeStateThread;
+  delete tsub;
+  delete tclient;
 }
 
 // Private member functions
 
-void StateMachine::changeState()
+void StateMachineOut::current(const std_msgs::String::ConstPtr &msg)
 {
-  while (ros::ok())
+  // Check whether the service is connected, then fetch the data about the states
+  if (!*client)
+    return;
+  tapi_lib::GetStateMachine getter;
+  getter.request.Get = true;
+  if ((*client)->call(getter))
   {
-    // Wait a second, thand change the current state and publish it
-    this_thread::sleep_for(chrono::milliseconds(1000));
-    if (currentState == "State1")
-      currentState = "State2";
-    else if (currentState == "State2")
-      currentState = "State3";
-    else
-      currentState = "State1";
-    std_msgs::String msg;
-    msg.data = currentState;
-    pub->publish(msg);
-  }
-}
+    // Store the states in a map
+    map<string, tapi_lib::State> states;
+    for (auto it = getter.response.States.begin(); it != getter.response.States.end(); ++it)
+    {
+      tapi_lib::State temp;
+      temp.ID = it->ID;
+      temp.Name = it->Name;
+      temp.Transitions = it->Transitions;
+      states.emplace(temp.ID, temp);
+    }
 
-bool StateMachine::smCall(tapi_lib::GetStateMachine::Request &smReq, tapi_lib::GetStateMachine::Response &smResp)
-{
-  if (smReq.Get)
-  {
-    smResp.States = states;
-    return true;
+    // See if the current state is in the map
+    if (states.count(msg->data) > 0)
+    {
+      // Print information about the current state and its transitions on the console
+      tapi_lib::State temp;
+      temp = states.at(msg->data);
+      string name, id, transitions = "";
+      name = temp.Name;
+      id = temp.ID;
+      for (auto it = temp.Transitions.begin(); it != temp.Transitions.end(); ++it)
+      {
+        if (states.count(it->ToID) > 0)
+        {
+          string toName = states.at(it->ToID).Name;
+          transitions += ", can switch to state: " + toName + ", when: " + it->Condition;
+        }
+        else
+          ROS_ERROR("Wrong transition");
+      }
+      ROS_INFO("In state %s, id %s%s", name.c_str(), id.c_str(), transitions.c_str());
+    }
+    else
+      ROS_ERROR("Wrong state");
   }
-  else
-    return false;
 }
 }
 
 /*!
- * \brief Main function of the StateMachine
+ * \brief Main function of the StateMachineOut
  *
- * Main function of the StateMachine to initialize ROS, its NodeHandle and then create the StateMachine object
+ * Main function of the StateMachineOut to initialize ROS, its NodeHandle and then create the StateMachineOut object
  * \param argc Number of arguments when started from the console
  * \param argv \c char pointer to the \c char arrays of the given arguments
  * \return 0 when exited correctly
- * \see Tapi::StateMachine
+ * \see Tapi::StateMachineOut
  */
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "Tapi_StateMachine");
+  ros::init(argc, argv, "Tapi_StateMachineOutput");
   ros::NodeHandle nh;
-  Tapi::StateMachine sm(&nh);
+  Tapi::StateMachineOut sm(&nh);
   ros::spin();
 
   return 0;
