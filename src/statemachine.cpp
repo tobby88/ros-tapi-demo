@@ -149,8 +149,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "Tapi_StateMachine");
   ros::NodeHandle nh;
   Tapi::StateMachine sm(&nh);
-  while (ros::ok())
-    ros::spinOnce();
+  ros::spin();
 
   return 0;
 }
